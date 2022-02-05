@@ -18,11 +18,8 @@ public class CompanyServiceImpl implements CompanyService {
     }
 
     @Override
-    public Company addCompany(String name) {
-        Company company = new Company();
-        company.setName(name);
-        companyRepository.save(company);
-        return company;
+    public Company addCompany(Company company) {
+        return companyRepository.save(company);
     }
 
     @Override
@@ -35,6 +32,15 @@ public class CompanyServiceImpl implements CompanyService {
     public Company getCompany(long id) {
         Company company = companyRepository.getById(id);
         return company;
+    }
+
+    @Override
+    public void deleteCompany(long id) {
+        Company company = companyRepository.findById(id).orElse(null);
+        if (company != null){
+            companyRepository.delete(company);
+        }
+
     }
 
 }

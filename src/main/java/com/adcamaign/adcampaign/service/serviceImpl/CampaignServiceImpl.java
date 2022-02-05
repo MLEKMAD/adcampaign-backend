@@ -30,6 +30,11 @@ public class CampaignServiceImpl implements CampaignService {
     }
 
     @Override
+    public Campaign getCampaign(long id) {
+        return campaignRepository.findById(id).orElse(null);
+    }
+
+    @Override
     public List<Campaign> getCampaigns(Company company) {
         List<Campaign> campaigns = campaignRepository.findByCompany(company);
         return campaigns;
@@ -47,6 +52,12 @@ public class CampaignServiceImpl implements CampaignService {
             campaignRepository.save(campaign);
         }
         return campaign;
+    }
+
+    @Override
+    public void deleteCampaign(long id) {
+        Campaign campaign = campaignRepository.findById(id).orElse(null);
+        campaignRepository.delete(campaign);
     }
 
 

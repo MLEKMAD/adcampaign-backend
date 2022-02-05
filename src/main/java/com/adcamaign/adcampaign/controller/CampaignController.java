@@ -25,11 +25,18 @@ public class CampaignController {
     public List<Campaign> getCampaigns(){
         return campaignService.getAllCampaigns();
     }
+
+    @GetMapping("/campaigns/{id}")
+    public Campaign getCampaign(@PathVariable long id){
+        return campaignService.getCampaign(id);
+    }
+
     @GetMapping("/campaigns/company/{id}")
     public List<Campaign> getCampaignsOfCompany(@PathVariable Long id){
         Company company = companyService.getCompany(id);
         return campaignService.getCampaigns(company);
     }
+
 
     @PostMapping(value="/campaigns", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Campaign> addCampaign(@RequestBody Campaign campaign){
@@ -38,6 +45,12 @@ public class CampaignController {
     @PutMapping(value="/campaigns/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Campaign> updateCampaign(@PathVariable long id, @RequestBody Campaign campaign){
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(campaignService.updateCampaign(id, campaign));
+    }
+
+    @DeleteMapping(value="/campaigns/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity deleteCampaign(@PathVariable long id){
+        campaignService.deleteCampaign(id);
+        return new ResponseEntity(HttpStatus.ACCEPTED);
     }
 
 }
