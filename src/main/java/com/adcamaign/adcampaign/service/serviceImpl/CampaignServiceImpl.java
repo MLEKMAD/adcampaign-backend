@@ -23,20 +23,6 @@ public class CampaignServiceImpl implements CampaignService {
     public Campaign addCampaign(Campaign campaign) {
         return campaignRepository.save(campaign);
     }
-
-    @Override
-    public Campaign addCampaign(String name, LocalDateTime startingDate, LocalDateTime endingDate, Company company, String description, Double budget) {
-        Campaign campaign = new Campaign();
-        campaign.setName(name);
-        campaign.setCompany(company);
-        campaign.setStartingDate(startingDate);
-        campaign.setEndingDate(endingDate);
-        campaign.setDescription(description);
-        campaign.setBudget(budget);
-        campaignRepository.save(campaign);
-        return campaign;
-    }
-
     @Override
     public List<Campaign> getAllCampaigns() {
         List<Campaign> campaigns = campaignRepository.findAll();
@@ -63,17 +49,5 @@ public class CampaignServiceImpl implements CampaignService {
         return campaign;
     }
 
-    @Override
-    public Campaign updateCampaign(long id, String name, LocalDateTime endingDate, Company company, String description, Double budget) {
-        Campaign campaign = campaignRepository.findById(id).orElse(null);
-        if (campaign != null) {
-            campaign.setName(name);
-            campaign.setCompany(company);
-            campaign.setEndingDate(endingDate);
-            campaign.setDescription(description);
-            campaign.setBudget(budget);
-            campaignRepository.save(campaign);
-        }
-        return campaign;
-    }
+
 }
