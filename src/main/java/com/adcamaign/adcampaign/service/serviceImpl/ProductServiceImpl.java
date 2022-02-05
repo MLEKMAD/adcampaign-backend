@@ -1,5 +1,6 @@
 package com.adcamaign.adcampaign.service.serviceImpl;
 
+import com.adcamaign.adcampaign.business.Campaign;
 import com.adcamaign.adcampaign.business.Product;
 import com.adcamaign.adcampaign.dao.ProductRepository;
 import com.adcamaign.adcampaign.service.ProductService;
@@ -23,20 +24,36 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Product addProduct(String image, String name, String brand, Integer quantity, Double price) {
-        Product product = new Product();
-        product.setBrand(brand);
-        product.setImage(image);
-        product.setName(name);
-        product.setPrice(price);
-        product.setQuantity(quantity);
-        productRepository.save(product);
-        return product;
+    public Product addProduct(Product product) {
+        return productRepository.save(product);
     }
 
     @Override
     public List<Product> getProductsBySearch(String filter) {
         List<Product> products = productRepository.findByNameContaining(filter);
         return products;
+    }
+
+    @Override
+    public void linkProductToCampaign(Campaign campaign, long id) {
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            product.setCampaign(campaign);
+            productRepository.save(product);
+        }
+    }
+
+    @Override
+    public List<Product> getProductOfCampaign(Campaign campaign) {
+        List<Product> products = productRepository.findByCampaign(campaign);
+        return products;
+    }
+
+    @Override
+    public void deleteProduct(long id) {
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            productRepository.delete(product);
+        }
     }
 }
