@@ -37,6 +37,7 @@ public class ProductController {
 
     @PostMapping(value="/products", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Product> addProduct(@RequestBody Product product){
+        System.out.println("CALLED");
         return ResponseEntity.status(HttpStatus.CREATED).body(productService.addProduct(product));
     }
 
