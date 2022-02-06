@@ -4,8 +4,14 @@ package com.adcamaign.adcampaign.business;
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
+@Table(	name = "user",
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = "email")
+        })
 public class User {
 
 
@@ -13,25 +19,39 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+
     @NotBlank(message = "Enter an email")
     @Column(unique = true)
     @Email(message = "Format is not correct")
     private String email;
 
+    @NotBlank
+    @Size(max = 20)
+    private String username;
+
     @Size(min = 5, message = "Your password should contain at least 5 characters")
     private String password;
 
-
-    @Temporal(TemporalType.DATE)
-    @NotNull(message = "enter your birthday!")
-    @Past(message = "you are not born in the future!")
-    private Date birthday;
-
-    private Date subscriptionDate;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(	name = "user_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles = new HashSet<>();
 
 
     public User() {
-        subscriptionDate = new Date();
+
+    }
+
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
+
+    public User(String username, String email, String encode) {
+        this.username = username;
+        this.email = email;
+        this.password = encode;
     }
 
     public Long getId() {
@@ -42,6 +62,13 @@ public class User {
         this.id = id;
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
     public String getEmail() {
         return email;
     }
@@ -59,20 +86,13 @@ public class User {
     }
 
 
-    public Date getBirthday() {
-        return birthday;
+
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setBirthday(Date dateDeNaissance) {
-        this.birthday = dateDeNaissance;
-    }
-
-    public Date getSubscriptionDate() {
-        return subscriptionDate;
-    }
-
-    public void setSubscriptionDate(Date dateInscription) {
-        this.subscriptionDate = dateInscription;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
 }
