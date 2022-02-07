@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByNameContaining(String filtre);
+    List<Product> findByName(String filtre);
 
     List<Product> findByCampaign(Campaign campaign);
 

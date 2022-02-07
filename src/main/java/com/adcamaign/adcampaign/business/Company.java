@@ -9,6 +9,12 @@ import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
+
+/**
+ * @author Téo BERARD
+ * This class manages the company model
+ */
+
 @Entity
 public class Company {
     private @Id
@@ -28,6 +34,22 @@ public class Company {
 
     public String getName() {
         return name;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public Set<Campaign> getCampaigns() {
+        return campaigns;
+    }
+
+    public void setCampaigns(Set<Campaign> campaigns) {
+        this.campaigns = campaigns;
     }
 
     public void setName(String name) {

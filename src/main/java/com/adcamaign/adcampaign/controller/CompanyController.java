@@ -19,25 +19,25 @@ public class CompanyController {
         this.companyService = companyService;
     }
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
-    @GetMapping(value="/companies", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/companies")
     public List<Company> getCompanies(){
         return companyService.getCompanies();
     }
 
-    @GetMapping(value="/companies/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value="/companies/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity<Company> getCampaign(@PathVariable long id){
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.getCompany(id));
     }
 
-    @PostMapping(value="/companies", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value="/companies")
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Company> addCompany(@RequestBody Company company){
         return ResponseEntity.status(HttpStatus.CREATED).body(companyService.addCompany(company));
     }
 
 
-    @DeleteMapping(value="/companies/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value="/companies/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public ResponseEntity deleteCampaign(@PathVariable long id){
         companyService.deleteCompany(id);

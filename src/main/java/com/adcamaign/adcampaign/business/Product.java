@@ -1,10 +1,17 @@
 package com.adcamaign.adcampaign.business;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+
+/**
+ * @author Téo BERARD
+ * This class manages the product model
+ */
 
 @Entity
 public class Product {
@@ -20,9 +27,10 @@ public class Product {
     private Integer nb_views;
     private Integer nb_sales;
 
-    @ManyToOne()
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
     @EqualsAndHashCode.Exclude
+    @JsonBackReference
     private Campaign campaign;
 
 
@@ -88,5 +96,36 @@ public class Product {
 
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setNb_clicks(Integer nb_clicks) {
+        this.nb_clicks = nb_clicks;
+    }
+
+    public void setNb_views(Integer nb_views) {
+        this.nb_views = nb_views;
+    }
+
+    public void setNb_sales(Integer nb_sales) {
+        this.nb_sales = nb_sales;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", image='" + image + '\'' +
+                ", name='" + name + '\'' +
+                ", brand='" + brand + '\'' +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                '}';
+    }
 }
 

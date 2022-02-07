@@ -31,7 +31,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-
+/**
+ * @author LEKMAD Mohamed
+ * This class manages the authentication
+ * We are using spring security and jwt to authenticate the users
+ * After hashing the password the user gets an access token which he will use to call different
+ * endpoints
+ */
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/auth")
@@ -51,6 +57,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    /**
+     *
+     * @param loginRequest
+     * @return The endpoint return the user details and also the access token
+     */
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
@@ -72,6 +83,11 @@ public class AuthController {
                 roles));
     }
 
+    /**
+     *
+     * @param signUpRequest
+     * @return the endpoint return an okay message if the user signup is successful
+     */
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {

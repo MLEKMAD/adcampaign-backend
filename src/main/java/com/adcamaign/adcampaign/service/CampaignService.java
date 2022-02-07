@@ -2,6 +2,7 @@ package com.adcamaign.adcampaign.service;
 
 import com.adcamaign.adcampaign.business.Campaign;
 import com.adcamaign.adcampaign.business.Company;
+import com.adcamaign.adcampaign.business.Product;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -12,6 +13,5 @@ public interface CampaignService {
     Campaign getCampaign(long id);
     List<Campaign> getCampaigns(Company company);
     Campaign updateCampaign(long id, Campaign newCampaign);
-
     void deleteCampaign(long id);
 }

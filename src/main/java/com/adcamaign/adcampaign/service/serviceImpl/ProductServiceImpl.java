@@ -7,6 +7,7 @@ import com.adcamaign.adcampaign.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,12 +31,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductsBySearch(String filter) {
-        List<Product> products = productRepository.findByNameContaining(filter);
+        List<Product> products = new ArrayList<>();
+        products = productRepository.findByNameContaining(filter);
+        System.out.println("products " + products.toString());
         return products;
     }
 
     @Override
-    public void linkProductToCampaign(Campaign campaign, long id) {
+     public void linkProductToCampaign(Campaign campaign, long id) {
         Product product = productRepository.findById(id).orElse(null);
         if (product != null) {
             product.setCampaign(campaign);
@@ -45,8 +48,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProductOfCampaign(Campaign campaign) {
-        List<Product> products = productRepository.findByCampaign(campaign);
-        return products;
+        return productRepository.findByCampaign(campaign);
     }
 
     @Override
@@ -54,6 +56,15 @@ public class ProductServiceImpl implements ProductService {
         Product product = productRepository.findById(id).orElse(null);
         if (product != null) {
             productRepository.delete(product);
+        }
+    }
+
+    @Override
+    public void addProductToCampaign(long id, Campaign campaign) {
+        Product product = productRepository.findById(id).orElse(null);
+        if (product != null) {
+            product.setCampaign(campaign);
+            productRepository.save(product);
         }
     }
 }

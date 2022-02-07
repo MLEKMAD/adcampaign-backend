@@ -3,6 +3,11 @@ package com.adcamaign.adcampaign.business;
 
 import javax.persistence.*;
 
+/**
+ * @author LEKMAD Mohamed
+ * This class manages the role model
+ */
+
 @Entity
 @Table(name = "roles")
 public class Role {

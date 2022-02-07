@@ -2,6 +2,7 @@ package com.adcamaign.adcampaign.business;
 
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -11,6 +12,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+
+
+/**
+ * @author Téo BERARD
+ * This class manages the campaign model
+ */
 
 @Entity
 public class Campaign {
@@ -38,8 +45,9 @@ public class Campaign {
 
     private String description;
 
-    @OneToMany(mappedBy = "campaign")
+    @OneToMany(mappedBy = "campaign", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @ToString.Exclude
+    @JsonManagedReference
     private List<Product> products;
 
     @ManyToOne()

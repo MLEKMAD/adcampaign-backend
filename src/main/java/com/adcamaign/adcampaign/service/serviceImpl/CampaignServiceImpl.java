@@ -2,6 +2,7 @@ package com.adcamaign.adcampaign.service.serviceImpl;
 
 import com.adcamaign.adcampaign.business.Campaign;
 import com.adcamaign.adcampaign.business.Company;
+import com.adcamaign.adcampaign.business.Product;
 import com.adcamaign.adcampaign.dao.CampaignRepository;
 import com.adcamaign.adcampaign.service.CampaignService;
 import org.springframework.beans.factory.annotation.Autowired;

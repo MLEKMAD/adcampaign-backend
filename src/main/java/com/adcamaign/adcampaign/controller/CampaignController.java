@@ -2,8 +2,11 @@ package com.adcamaign.adcampaign.controller;
 
 import com.adcamaign.adcampaign.business.Campaign;
 import com.adcamaign.adcampaign.business.Company;
+import com.adcamaign.adcampaign.business.Product;
 import com.adcamaign.adcampaign.service.CampaignService;
 import com.adcamaign.adcampaign.service.CompanyService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +17,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
+@Api( tags = "Campaigns")
 public class CampaignController {
     private CampaignService campaignService;
     private CompanyService companyService;
@@ -23,6 +27,7 @@ public class CampaignController {
         this.companyService = companyService;
     }
 
+    @ApiOperation(value = "This method is used to get all the campaigns .")
     @GetMapping("/campaigns")
     @PreAuthorize("hasRole('USER') or hasRole('ADMIN')")
     public List<Campaign> getCampaigns(){
@@ -48,6 +53,7 @@ public class CampaignController {
     public ResponseEntity<Campaign> addCampaign(@RequestBody Campaign campaign){
         return ResponseEntity.status(HttpStatus.CREATED).body(campaignService.addCampaign(campaign));
     }
+
     @PutMapping(value="/campaigns/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Campaign> updateCampaign(@PathVariable long id, @RequestBody Campaign campaign){

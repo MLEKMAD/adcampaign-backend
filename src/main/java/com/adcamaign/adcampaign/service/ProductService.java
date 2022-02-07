@@ -6,10 +6,12 @@ import com.adcamaign.adcampaign.business.Product;
 import java.util.List;
 
 public interface ProductService {
-    public List<Product> findAllProducts();
+    List<Product> findAllProducts();
     public Product addProduct(Product product);
-    public List<Product> getProductsBySearch(String filter);
-    public void linkProductToCampaign(Campaign campaign, long id);
+    List<Product> getProductsBySearch(String filter);
+    void linkProductToCampaign(Campaign campaign, long id);
     List<Product> getProductOfCampaign(Campaign campaign);
     void deleteProduct(long id);
+    void addProductToCampaign(long id, Campaign campaign);
+
 }

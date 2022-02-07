@@ -7,6 +7,11 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * @author LEKMAD Mohamed
+ * This class manages the role model
+ */
+
 @Entity
 @Table(	name = "user",
         uniqueConstraints = {
@@ -26,7 +31,7 @@ public class User {
     private String email;
 
     @NotBlank
-    @Size(max = 20)
+    @Size(max = 50)
     private String username;
 
     @Size(min = 5, message = "Your password should contain at least 5 characters")
